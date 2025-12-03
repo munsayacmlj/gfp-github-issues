@@ -24,7 +24,22 @@ class GithubController extends Controller
 
         if ($response->successful()) {
             $issues = $response->json();
+            $issues = array_map(function ($issue) {
+                if (empty($issue['labels'])) return $issue;
 
+                if (!empty($issue['labels'])) {
+                    $exclude = false;
+                    foreach($issue['labels'] as $label) {
+                        if ($label['name'] === "wontfix") $exclude = true;
+                    }
+
+                    if (!$exclude) {
+                        return $issue;
+                    }
+                }
+
+            }, $issues);
+           $issues = array_filter($issues);
             return view('pages.home', [
                 'issues' => $issues,
                 'status' => $response->status()

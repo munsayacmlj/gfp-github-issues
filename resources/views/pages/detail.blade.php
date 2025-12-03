@@ -24,7 +24,11 @@
         </div>
         <div class="mb-4">
             <span class="text-sm text-gray-500">Body:</span>
-            <div class="mt-2 p-4 bg-gray-50 rounded text-gray-800">{{ $issue['body'] ?? 'No description provided.' }}</div>
+            <div class="mt-2 p-4 bg-gray-50 rounded text-gray-800">
+                <textarea id="issueBody" cols="30" rows="10" contenteditable="true">
+                    {{ $issue['body'] ?? 'No description provided.' }}
+                </textarea>
+            </div>
         </div>
     @elseif ($status)
         <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4" role="alert">
